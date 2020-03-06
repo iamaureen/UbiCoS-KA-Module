@@ -10,6 +10,7 @@
   // });
 // });
 
+// message.clicked comes from popup.js
 chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
   if (message.clicked) {
     /* Do the usual onClicked stuff */
@@ -21,7 +22,7 @@ chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
   }
 });
 
-// This block is new!
+//This block is new!
 // chrome.runtime.onMessage.addListener(
 //   function(request, sender, sendResponse) {
 //     if( request.message === "open_new_tab" ) {
@@ -29,3 +30,14 @@ chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
 //     }
 //   }
 // );
+
+//get username value from content.js
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    //if( request.message === "message" ) {
+    if( request.message === "username" ){
+      console.log("from background.js", request.uname)
+      //alert("username is :: ", request.name);
+    }
+  }
+);

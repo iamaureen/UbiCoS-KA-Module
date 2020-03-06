@@ -6,8 +6,17 @@ chrome.runtime.onMessage.addListener(
       alert(firstHref);
       console.log(firstHref);
 
+
+
+
+
       // This line is new!
-    //  chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
+     //chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
+    //get the username
+    var name = $("._wozql4").text();
+    console.log("content.js username :: ", name);
+    //send to background.js
+    chrome.runtime.sendMessage({"message": "username", "uname": name});
     }
   }
 );
