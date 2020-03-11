@@ -3,6 +3,7 @@
   "name": "Khan Academy",
   "description": "UbiCoS",
   "version": "0.1",
+  "permissions":["storage"],
   "background": {
     "scripts": ["background.js"]
   },

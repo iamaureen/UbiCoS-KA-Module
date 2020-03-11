@@ -4,30 +4,32 @@
 
 'use strict';
 
-let templateBtn = document.getElementById('templateBtn');
-let badgeBtn = document.getElementById('badgeBtn');
+// Once the DOM is ready...
+window.addEventListener('DOMContentLoaded', () => {
 
-// let changeColor = document.getElementById('changeColor');
-//
-// chrome.storage.sync.get('color', function(data) {
-//   changeColor.style.backgroundColor = data.color;
-//   changeColor.setAttribute('value', data.color);
-// });
-//
-//changeColor.onclick = function(element) {
-  // let color = element.target.value;
-  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  //   chrome.tabs.executeScript(
-  //       tabs[0].id,
-  //       {code: 'document.body.style.backgroundColor = "' + color + '";'});
-  // });
-//};
+  // ...query for the active tab...
+  chrome.tabs.query({active: true,currentWindow: true}, tabs => {
+    // ...and send a request for the DOM info...
+    chrome.tabs.sendMessage(tabs[0].id, {from: 'popup', subject: 'DOMInfo'},function(response){
+      //Update the relevant fields with the new data.
+      document.getElementById('username').textContent = "Hello " + response.uname;
+    });
+  });
 
-templateBtn.onclick = function(element) {
-  //alert( "Handler for .click() called, templateBtn" );
-  chrome.runtime.sendMessage({clicked : true});
-};
+  let templateBtn = document.getElementById('templateBtn');
+  let badgeBtn = document.getElementById('badgeBtn');
 
-badgeBtn.onclick = function(element) {
-    alert( "Handler for .click() called, badgeBtn" );
-};
+  templateBtn.onclick = function(element) {
+    alert( "Handler for .click() called, templateBtn" );
+    //send to background.js
+    chrome.runtime.sendMessage({clicked : true});
+  };
+
+  badgeBtn.onclick = function(element) {
+      alert( "Handler for .click() called, badgeBtn" );
+  };
+
+
+
+
+});
