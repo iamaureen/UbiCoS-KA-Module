@@ -17,32 +17,26 @@ chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
     //alert("i am here in background")
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       var activeTab = tabs[0];
-      //send to content.js
+      //step 3: send to content.js
       chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
     });
   }
 });
 
-//This block is new!
+
+
+
+// //get username value from content.js
 // chrome.runtime.onMessage.addListener(
 //   function(request, sender, sendResponse) {
-//     if( request.message === "open_new_tab" ) {
-//       chrome.tabs.create({"url": request.url});
+//     //if( request.message === "message" ) {
+//     if( request.message === "username" ){
+//       console.log("from background.js", request.uname);
+//       // Save it using the Chrome extension storage API.
+//       chrome.storage.local.set({'username': request.uname}, function() {
+//         });
+//
+//
 //     }
 //   }
 // );
-
-//get username value from content.js
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    //if( request.message === "message" ) {
-    if( request.message === "username" ){
-      console.log("from background.js", request.uname);
-      // Save it using the Chrome extension storage API.
-      chrome.storage.local.set({'username': request.uname}, function() {
-        });
-
-
-    }
-  }
-);
