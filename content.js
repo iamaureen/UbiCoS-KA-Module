@@ -28,13 +28,23 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
+
+
+
+//detects textarea out of focus event
 setTimeout(function(){
-  console.log("inside set time out from content.js")
-  $("textarea").on('focusout',function(e) {
-      // capture user response entered in a textbox
-      console.log($("textarea#"+e.target.id).val()) //TODO: handle duplication - each focusout duplicates the message.
-      console.log($(e.target).closest('li').parent().closest('li')[0].innerText) //original post //subject to change with DOM change
-      //alert($("textarea#"+e.target.id))
+  console.log("timer function set");
+  $(document).on("blur", "textarea", function(e){
+    console.log (e);
+    console.log(e.target.id);
+    console.log($('textarea#'+e.target.id).val());
   });
+  //TODO send this to database
+  //trim first, check if it is not empty, then send to the database
+
+  //inactive comment button class _1a9oxwpk
+  //active comment button class _h6mih68
+
+
 
 }, 5000);
