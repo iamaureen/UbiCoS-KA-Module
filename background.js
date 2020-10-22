@@ -10,6 +10,7 @@
 //   });
 // });
 
+
 // step 2: message.clicked comes from popup.js
 chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
   if (message.clicked) {

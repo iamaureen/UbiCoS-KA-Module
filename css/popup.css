@@ -100,5 +100,6 @@
     left: 125px;
     top: 165px;
     width: 265px;
+    display: inline-block;
 }
 /* css related to the div with class = "div-badge-prompt" -- end*/
