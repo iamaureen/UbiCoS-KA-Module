@@ -10,96 +10,33 @@
     margin: 4px 2px;
     cursor: pointer;
   }
- /* css related to the div with class = "div-badge-options" -- start*/
-  .div-badge-options{
-    position: fixed;
-    top: 130px;
-    left: 20px;
-    height: 170px;
-    width: 380px;
-    z-index:2;
-    //border:1px solid black;
-    border-radius: 40px;
-    background: linear-gradient(#00d4ff, #097664);
 
-  }
+ .dynamic-divTag{
+      position: relative;
+      left: 40px;
+      height: 120px;
+      width: 450px;
+      font-weight: bold;
+      font-size: large;
+      color: green;
+      display: inline-block;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f4f4f4;
+      z-index: 2;
 
-.div-badge-options div{
-  display: inline-block;
-  position: relative;
-  top: 40px;
-  left: 30px;
-  width: 70px;
-  height: 180px;
-  margin-right: 10px;
+ }
 
-}
+ .dynamic-img{
+   /* position: absolute;
+   left: 15%; */
+   margin: 5px 15px 5px 15px;
+   width: 70px;
+   height: 100px;
+ }
 
-.div-badge-options a {
-        cursor: pointer;
-        color: white;
-        text-decoration: none;
-    }
-
-.div-badge-options a img {
-  position: relative;
-  top: -30px;
-  margin: 5px;
-  //border:1px solid black;
-  width:65px;
-
-
-}
-
-.div-badge-options a span{
-    position: relative;
-    top: -30px;
-    left: 15px;
-}
-
-/* css related to the div with class = "div-badge-options" -- end */
-
-/* css related to the div with class = "div-badge-prompt" -- start*/
-.div-badge-prompt{
-    position: fixed;
-    top: 145px;
-    left: 25px;
-    border: 1px solid #ddd;
-    background-color: #f4f4f4;
-    color: black;
-    border-radius: 15px;
-    width: 370px;
-    height: 200px;
-
-}
-
-.div-badge-prompt a {
-    cursor: pointer;
-    color: white;
-    text-decoration: none;
-
-}
-
-.div-badge-prompt a img{
-    width: 80px;
-    height: 100px;
-    position: relative;
-    left: 10px;
-    top: 20px;
-}
-
-.div-badge-prompt a span{
-    position: relative;
-    color: black;
-    left: -55px;
-    top: 50px;
-}
-
-.div-badge-prompt p {
-    position: fixed;
-    left: 125px;
-    top: 165px;
-    width: 265px;
-    display: inline-block;
-}
-/* css related to the div with class = "div-badge-prompt" -- end*/
+ .dynamic-pTag{
+   position: absolute;
+   left: 20%;
+   top: 10%;
+ }
