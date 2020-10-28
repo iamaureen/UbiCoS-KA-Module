@@ -30,13 +30,25 @@
  .dynamic-img{
    /* position: absolute;
    left: 15%; */
-   margin: 5px 15px 5px 15px;
-   width: 70px;
-   height: 100px;
+   margin: 10px 15px 10px 15px;
+   width: 50px;
+   height: 75px;
  }
 
  .dynamic-pTag{
    position: absolute;
    left: 20%;
    top: 10%;
+ }
+
+ .dynamic-pins{
+   position: absolute;
+   left: 20%;
+   top: 50%;
+ }
+
+ .dynamic-pbadge{
+   position: absolute;
+   left: 20%;
+   top: -20%;
  }

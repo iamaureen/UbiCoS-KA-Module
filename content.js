@@ -35,10 +35,15 @@ chrome.runtime.onMessage.addListener(
 //detects textarea out of focus event
 setTimeout(function(){
   console.log("timer function set");
-  //console.log(location.href);
+
   var pageTitle = document.title;
+  var pageURL = location.href;
+
   var comment_target_id = '';
   var comment = '';
+
+  var username = $("._wozql4").text();
+
   $(document).on("blur", "textarea", function(e){
     //console.log (e);
     console.log(e.target.id);
@@ -52,46 +57,85 @@ setTimeout(function(){
       //comment is empty; do nothing
     }else{
       //comment is not empty
-      //make the database call here;
+      //make the database call and save the students' response;
+      console.log(username);
       $.ajax({
           //url: 'https://hcilabasu.pythonanywhere.com/saveKApost',
           url: 'http://127.0.0.1:8000/saveKApost',
           type: 'POST',
-          //async: false,
-          data: {'username': "ant", //TODO: 1) split, take the first part, lowercase
-          'pagetitle' : pageTitle,
+          async: false,
+          data: {'username': username, //TODO: 1) split, take the first part, lowercase
+          'pageURL' : pageURL,
           'textareaId' : comment_target_id,
           'content' : comment },
           success: function (data) {
-
-            //TODO: run the algorithm for badges
-            //attach the element with the node above (parentNode)
-            //remove any previously added div tags here
-            document.querySelectorAll('.dynamic-divTag').forEach(function(elem){
-              elem.remove;
-            });
-            //attach the new element
-            //1. create the new element div
-            var dynamic_div = document.createElement('div');
-            dynamic_div.className = "dynamic-divTag"; //add the class name for div
-            //2. create an image tag (that will hold the badge)
-            var image = document.createElement("img");
-            //todo: set the image name dynamically based on the badge
-            image.src = chrome.runtime.getURL("images/blank.png");
-            image.className = "dynamic-img"; //add the class name for image
-            dynamic_div.appendChild(image);
-            //3. create a p tag
-            var ptag = document.createElement("p");
-            //todo: set the success message dynamically
-            ptag.innerHTML = 'successfully insterted into the database';
-            ptag.className = "dynamic-pTag";
-            dynamic_div.appendChild(ptag);
-            //4. add the div into the desired element of the DOM
-            parentNode.appendChild(dynamic_div);
-
+              console.log(data);
           }
 
-        });//end of the ajax call
+        });//end of the first ajax call
+
+        //this ajax call will check for keyword and assign badges as necessary
+        $.ajax({
+            //url: 'https://hcilabasu.pythonanywhere.com/saveKApost',
+            url: 'http://127.0.0.1:8000/matchKeywords',
+            type: 'POST',
+            async: false,
+            data: {'username': username, 'message': comment, 'platform': 'KA', 'ka_url': pageURL},
+            success: function (data) {
+
+              //get all the data
+              console.log(data);
+              console.log(data.isMatch);
+              console.log(data.praiseText);
+              console.log(data.selected_badge);
+              //attach the element with the node above (parentNode)
+              //remove any previously added div tags here
+              document.querySelectorAll('.dynamic-divTag').forEach(function(elem){
+                elem.remove();
+              });
+              //attach the new element
+              //1. create the new element div
+              var dynamic_div = document.createElement('div');
+              dynamic_div.className = "dynamic-divTag"; //add the class name for div
+              //2. create an image tag (that will hold the badge)
+              var image = document.createElement("img");
+              //todo: set the image name dynamically based on the badge
+              image.src = chrome.runtime.getURL("images/"+data.selected_badge+".png");
+              image.className = "dynamic-img"; //add the class name for image
+              dynamic_div.appendChild(image);
+              //3. create a p tag for the praise
+              var ptag = document.createElement("p");
+              ptag.innerHTML = data.praiseText; //set this from the server
+              ptag.className = "dynamic-pTag";
+              dynamic_div.appendChild(ptag);
+              //3a. create a p tag with the badge name
+              var pbadge = document.createElement("p");
+              pbadge.innerHTML = 'You earned the ' +data.selected_badge+ ' badge!'; //set this from the server
+              pbadge.className = "dynamic-pbadge";
+              dynamic_div.appendChild(pbadge);
+              //3b. create a p tag for instruction
+              var pins = document.createElement("p");
+              pins.innerHTML = 'You can go to Modelbook and try another badge!'
+              pins.className = "dynamic-pins";
+              dynamic_div.appendChild(pins);
+              //4. add the div into the desired element of the DOM
+              parentNode.appendChild(dynamic_div);
+
+            }
+
+          });//end of the second jax call
+
+            // success: function(response){
+            //        console.log(response.isMatch); //returns true if match found, else false
+            //        if(response.isMatch){
+            //            console.log('inside the if else loop');
+            //            $("#gallery-reward").css("display", "block");
+            //            //set up the values
+            //            $('#reward-div-selection').text('You earned the '+global_badge_selected+' badge!');
+            //            $('#reward-div-prompt').text(response.praiseText);
+            //
+            //        }
+            //     }
 
     }//end of if comment is empty or not
 
